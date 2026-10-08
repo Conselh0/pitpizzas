@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PitPizzas", "PitPizzas\PitPizzas.csproj", "{AA134546-0628-4B8A-8AAE-288ABA077873}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AA134546-0628-4B8A-8AAE-288ABA077873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA134546-0628-4B8A-8AAE-288ABA077873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA134546-0628-4B8A-8AAE-288ABA077873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA134546-0628-4B8A-8AAE-288ABA077873}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E47050D3-C383-4D22-B07F-C6A0F8E17A27}
+	EndGlobalSection
+EndGlobal
