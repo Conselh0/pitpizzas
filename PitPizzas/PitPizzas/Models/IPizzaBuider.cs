@@ -1,6 +1,8 @@
-﻿namespace PitPizzas.Models
+﻿using PitPizzas.Models;
+
+namespace PitPizzas.Builders
 {
-    public interface IPizzaBuider
+    public interface IPizzaBuilder
     {
         void DefinirMassa(string massa);
         void AdicionarIngrediente(string ingrediente);
