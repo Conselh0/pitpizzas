@@ -1,0 +1,127 @@
+@model PizzaViewModel
+@using System.Globalization
+@{
+    ViewData["Title"] = "Monte sua pizza";
+    var pt = new CultureInfo("pt-BR");
+    var podeFinalizar = Model.Pizza.Massa != null && Model.Pizza.Ingredientes.Count > 0;
+}
+
+@if (!string.IsNullOrEmpty(Model.Mensagem))
+{
+    <div class="aviso">@Model.Mensagem</div>
+}
+
+<div class="layout">
+    <section class="passos">
+
+        <div class="bloco">
+            <h2>⭐ Sugestões do Pit</h2>
+            <div class="sugestoes">
+                <form asp-action="Sugestao" method="post"><input type="hidden" name="nome" value="margherita" /><button class="chip">Margherita</button></form>
+                <form asp-action="Sugestao" method="post"><input type="hidden" name="nome" value="calabresa" /><button class="chip">Calabresa</button></form>
+                <form asp-action="Sugestao" method="post"><input type="hidden" name="nome" value="frango" /><button class="chip">Frango c/ Catupiry</button></form>
+            </div>
+        </div>
+
+        <div class="bloco">
+            <h2><span class="num">1</span> Escolha a massa</h2>
+            <div class="grade">
+                @foreach (var m in Model.Massas)
+                {
+                    var ativo = Model.Pizza.Massa?.Id == m.Id;
+                    <form asp-action="DefinirMassa" method="post">
+                        <input type="hidden" name="id" value="@m.Id" />
+                        <button type="submit" class="opcao @(ativo ? "ativa" : "")">
+                            <strong>@m.Nome</strong>
+                            <small>@m.Descricao</small>
+                            <span class="preco">@m.Preco.ToString("C", pt)</span>
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+
+        <div class="bloco">
+            <h2><span class="num">2</span> Escolha os ingredientes</h2>
+            <div class="grade">
+                @foreach (var i in Model.Ingredientes)
+                {
+                    var ativo = Model.Pizza.Ingredientes.Any(x => x.Id == i.Id);
+                    <form asp-action="AlternarIngrediente" method="post">
+                        <input type="hidden" name="id" value="@i.Id" />
+                        <button type="submit" class="opcao @(ativo ? "ativa" : "")">
+                            <span class="emoji">@i.Emoji</span>
+                            <strong>@i.Nome</strong>
+                            <span class="preco">@(i.Preco == 0 ? "Grátis" : "+ " + i.Preco.ToString("C", pt))</span>
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+
+        <div class="bloco">
+            <h2><span class="num">3</span> Adicionais</h2>
+            <div class="grade">
+                @foreach (var a in Model.Adicionais)
+                {
+                    var ativo = Model.Pizza.Adicionais.Any(x => x.Id == a.Id);
+                    <form asp-action="AlternarAdicional" method="post">
+                        <input type="hidden" name="id" value="@a.Id" />
+                        <button type="submit" class="opcao @(ativo ? "ativa" : "")">
+                            <strong>@a.Nome</strong>
+                            <small>@a.Descricao</small>
+                            <span class="preco">+ @a.Preco.ToString("C", pt)</span>
+                        </button>
+                    </form>
+                }
+            </div>
+        </div>
+    </section>
+
+    <aside class="resumo">
+        <h2>🍕 Seu pedido</h2>
+
+        <div class="item">
+            <span class="rotulo">Massa</span>
+            @if (Model.Pizza.Massa != null) { <p>@Model.Pizza.Massa.Nome</p> }
+            else { <p class="vazio">Nenhuma escolhida</p> }
+        </div>
+
+        <div class="item">
+            <span class="rotulo">Ingredientes</span>
+            @if (Model.Pizza.Ingredientes.Any())
+            {
+                <ul>@foreach (var i in Model.Pizza.Ingredientes) { <li>@i.Emoji @i.Nome</li> }</ul>
+            }
+            else { <p class="vazio">Nenhum ainda</p> }
+        </div>
+
+        <div class="item">
+            <span class="rotulo">Adicionais</span>
+            @if (Model.Pizza.Adicionais.Any())
+            {
+                <ul>@foreach (var a in Model.Pizza.Adicionais) { <li>@a.Nome</li> }</ul>
+            }
+            else { <p class="vazio">Nenhum</p> }
+        </div>
+
+        <div class="total">
+            <span>Total</span>
+            <strong>@Model.Pizza.Total.ToString("C", pt)</strong>
+        </div>
+
+        <div class="acoes">
+            <form asp-action="Finalizar" method="post">
+                <button class="btn principal" disabled="@(!podeFinalizar)">Finalizar pedido</button>
+            </form>
+            <div class="linha">
+                <form asp-action="Desfazer" method="post">
+                    <button class="btn" disabled="@(!Model.PodeDesfazer)">↩ Desfazer</button>
+                </form>
+                <form asp-action="Limpar" method="post">
+                    <button class="btn">🗑 Limpar</button>
+                </form>
+            </div>
+        </div>
+    </aside>
+</div>

@@ -1,27 +1,23 @@
-var builder = WebApplication.CreateBuilder(args);
+using PitPizzas.Patterns.Builder;
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+var app = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+app.Services.AddControllersWithViews();
+app.Services.AddDistributedMemoryCache();
+app.Services.AddSession();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+// Um builder novo + um diretor por requisição
+app.Services.AddScoped<IPizzaBuilder, PizzaBuilder>();
+app.Services.AddScoped<Diretor>();
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+var web = app.Build();
 
-app.UseRouting();
+web.UseStaticFiles();
+web.UseRouting();
+web.UseSession();
 
-app.UseAuthorization();
-
-app.MapControllerRoute(
+web.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Pizza}/{action=Index}/{id?}");
 
-app.Run();
+web.Run();

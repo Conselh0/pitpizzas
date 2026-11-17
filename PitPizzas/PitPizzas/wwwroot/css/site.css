@@ -1,22 +1,52 @@
-html {
-  font-size: 14px;
+:root {
+    --laranja: #ff6b00;
+    --amarelo: #ffd25e;
+    --amarelo-claro: #fff3cf;
+    --marrom: #5a2d0c;
+    --vermelho: #d63a42;
+    --branco: #ffffff;
 }
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; background: var(--amarelo-claro); color: var(--marrom); }
+.topo { display: flex; align-items: center; gap: 24px; padding: 16px 32px; background: linear-gradient(135deg, var(--laranja), #ff9a1f); color: var(--branco); border-bottom: 6px solid var(--marrom); }
+.logo { width: 110px; height: 110px; border-radius: 50%; background: var(--branco); box-shadow: 0 4px 0 var(--marrom); display: block; }
+.titulo h1 { margin: 0; font-size: 2rem; }
+.titulo p { margin: 4px 0 0; opacity: .95; }
+.conteudo { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+.layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+.bloco { background: var(--branco); border: 3px solid var(--marrom); border-radius: 16px; padding: 18px; margin-bottom: 20px; box-shadow: 0 5px 0 var(--marrom); }
+.bloco h2 { margin: 0 0 14px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+.num { background: var(--laranja); color: var(--branco); width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; }
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.grade form { display: contents; }
+.opcao { width: 100%; height: 100%; min-height: 96px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: var(--amarelo-claro); color: var(--marrom); border: 3px solid var(--marrom); border-radius: 14px; padding: 10px; font-family: inherit; text-align: center; transition: transform .12s, background .12s; }
+.opcao:hover { transform: translateY(-3px); background: var(--amarelo); }
+.opcao.ativa { background: var(--laranja); color: var(--branco); }
+.opcao small { opacity: .8; }
+.opcao .emoji { font-size: 1.6rem; }
+.opcao .preco { font-weight: 700; font-size: .85rem; }
+.sugestoes { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip { cursor: pointer; font-family: inherit; font-weight: 700; padding: 8px 16px; border-radius: 999px; background: var(--vermelho); color: var(--branco); border: 3px solid var(--marrom); }
+.chip:hover { filter: brightness(1.1); }
+.resumo { position: sticky; top: 16px; background: var(--branco); border: 3px solid var(--marrom); border-radius: 16px; padding: 18px; box-shadow: 0 5px 0 var(--marrom); }
+.resumo h2 { margin-top: 0; }
+.item { margin-bottom: 12px; }
+.rotulo { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--laranja); font-weight: 700; }
+.item p, .item ul { margin: 4px 0 0; }
+.item ul { padding-left: 18px; }
+.vazio { opacity: .55; font-style: italic; }
+.total { display: flex; justify-content: space-between; align-items: center; border-top: 3px dashed var(--marrom); padding-top: 12px; margin-top: 8px; font-size: 1.2rem; }
+.total strong { color: var(--vermelho); font-size: 1.6rem; }
+.acoes { margin-top: 14px; display: grid; gap: 10px; }
+.acoes form { display: block; }
+.linha { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.btn { width: 100%; padding: 10px; cursor: pointer; font-family: inherit; font-weight: 700; border-radius: 12px; border: 3px solid var(--marrom); background: var(--amarelo); color: var(--marrom); }
+.btn.principal { background: var(--vermelho); color: var(--branco); font-size: 1.05rem; padding: 12px; }
+.btn:disabled { opacity: .45; cursor: not-allowed; }
+.aviso { background: var(--amarelo); border: 3px solid var(--marrom); border-radius: 12px; padding: 14px 18px; margin-bottom: 20px; font-weight: 700; }
+.rodape { text-align: center; padding: 20px; opacity: .7; }
+@media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .resumo { position: static; }
+    .topo { flex-direction: column; text-align: center; }
 }
